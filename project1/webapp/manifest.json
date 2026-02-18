@@ -14,6 +14,16 @@
       "id": "@sap/generator-fiori:basic",
       "version": "1.20.1",
       "toolsId": "2ad73bb2-2c67-47f8-adbf-a06c3b217e70"
+    },
+    "dataSources": {
+      "ODataV2": {
+        "uri": "/odata/v2/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/oDatav2/metadata.xml"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -33,10 +43,11 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.144.1",
       "libs": {
+        "sap.f": {},
         "sap.m": {},
         "sap.ui.core": {}
       }
@@ -51,6 +62,11 @@
         "settings": {
           "bundleName": "project1.i18n.i18n"
         }
+      },
+      "v2": {
+        "dataSource": "ODataV2",
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {}
       }
     },
     "resources": {
@@ -62,9 +78,9 @@
     },
     "routing": {
       "config": {
-        "routerClass": "sap.m.routing.Router",
-        "controlAggregation": "pages",
-        "controlId": "app",
+        "routerClass": "sap.f.routing.Router",
+        "controlAggregation": "beginColumnPages",
+        "controlId": "layout",
         "transition": "slide",
         "type": "View",
         "viewType": "XML",
@@ -76,15 +92,36 @@
         {
           "name": "RouteMain",
           "pattern": ":?query:",
-          "target": [
-            "TargetMain"
-          ]
+          "target": ["TargetMain"]
+        },
+        {
+          "name": "RouteCreate",
+          "pattern": "create",
+          "target": ["TargetMain", "TargetCreate"]
+        },
+        {
+          "name": "RouteDetail",
+          "pattern": "Products/{productId}/:?query:",
+          "target": ["TargetMain", "TargetDetail"]
         }
       ],
       "targets": {
         "TargetMain": {
+          "name": "Main",
           "id": "Main",
-          "name": "Main"
+          "level": 1
+        },
+        "TargetCreate": {
+          "name": "ObjectCreate",
+          "id": "Create",
+          "level": 1,
+          "controlAggregation": "midColumnPages"
+        },
+        "TargetDetail": {
+          "name": "ObjectDetail",
+          "id": "Detail",
+          "level": 1,
+          "controlAggregation": "midColumnPages"
         }
       }
     },

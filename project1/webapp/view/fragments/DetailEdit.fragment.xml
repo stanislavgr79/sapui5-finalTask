@@ -1,0 +1,82 @@
+<form:SimpleForm
+    xmlns:form="sap.ui.layout.form"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    maxContainerCols="2"
+    editable="true"
+    layout="ResponsiveGridLayout"
+    labelSpanL="12"
+    labelSpanM="12"
+    emptySpanL="0"
+    emptySpanM="0"
+    columnsL="1"
+    columnsM="1">
+        <form:content>
+            <m:Label text="{i18n>fieldName}"/>
+            <m:Input
+                required="true"
+                core:require="{
+                    ValidateProductV2: 'project1/validate/validateProductV2'
+                }"
+                value="{edit>/Name}"
+                change="ValidateProductV2.onValidateName"
+                valueState="{= ${modelV2>/validate/isValidName} === true ? 'None' : 'Error'}"
+                valueStateText="{i18n>valueStateRequired}"
+                width="100%"/>
+            
+            <m:Label text="{i18n>fieldDescription}"/>
+            <m:Input
+                required="true"
+                core:require="{
+                    ValidateProductV2: 'project1/validate/validateProductV2'
+                }"
+                value="{edit>/Description}"
+                change="ValidateProductV2.onValidateDescription"
+                valueState="{= ${modelV2>/validate/isValidDescription} === true ? 'None' : 'Error'}"
+                valueStateText="{i18n>valueStateRequired}"
+                width="100%"/>
+            
+            <m:Label text="{i18n>fieldPrice}"/>
+            <m:Input
+                type="Number"
+                required="true"
+                core:require="{
+                    ValidateProductV2: 'project1/validate/validateProductV2'
+                }"
+                value="{edit>/Price}"
+                change="ValidateProductV2.onValidatePrice"
+                valueState="{= ${modelV2>/validate/isValidPrice} === true ? 'None' : 'Error'}"
+                valueStateText="{i18n>valueStateRequired}"
+                width="100%"/>
+            
+            <m:Label text="{i18n>fieldReleaseDate}"/>
+            <m:DatePicker
+                required="true"
+                core:require="{
+                    ValidateProductV2: 'project1/validate/validateProductV2'
+                }"
+                value="{
+                    path: 'edit>/ReleaseDate',
+                    type: 'sap.ui.model.type.Date',
+                    formatOptions: { pattern: 'yyyy-MM-dd' }
+                }"
+                change="ValidateProductV2.onValidateReleaseDate"
+                valueFormat="yyyy-MM-dd"
+                displayFormat="yyyy-MM-dd"
+                valueState="{= ${modelV2>/validate/isValidReleaseDate} === true ? 'None' : 'Error'}"
+                valueStateText="{i18n>valueStateRequired}"
+                width="100%"/>
+            
+            <m:Label text="{i18n>fieldRating}"/>
+            <m:Input
+                type="Number"
+                core:require="{
+                    ValidateProductV2: 'project1/validate/validateProductV2'
+                }"
+                value="{edit>/Rating}"
+                change="ValidateProductV2.onValidateRating"
+                valueState="{= ${modelV2>/validate/isValidRating} === true ? 'None' : 'Error'}"
+                valueStateText="{i18n>valueStateRequired}"
+                width="100%"/>
+        </form:content>
+    </form:SimpleForm>

@@ -1,0 +1,29 @@
+<form:SimpleForm
+    xmlns:form="sap.ui.layout.form"
+    xmlns:m="sap.m"
+    maxContainerCols="2"
+    editable="false"
+    layout="ResponsiveGridLayout"
+    labelSpanL="12"
+    labelSpanM="12"
+    emptySpanL="0"
+    emptySpanM="0"
+    columnsL="1"
+    columnsM="1">
+        <form:content>
+            <m:Label text="{i18n>fieldName}"/>
+            <m:Text text="{edit>/Name}"/>
+            
+            <m:Label text="{i18n>fieldDescription}"/>
+            <m:Text text="{edit>/Description}"/>
+            
+            <m:Label text="{i18n>fieldPrice}"/>
+            <m:Text text="{edit>/Price}"/>
+            
+            <m:Label text="{i18n>fieldReleaseDate}"/>
+            <m:Text text="{edit>/ReleaseDate}"/>
+            
+            <m:Label text="{i18n>fieldRating}"/>
+            <m:Text text="{edit>/Rating}"/>
+        </form:content>
+    </form:SimpleForm>
