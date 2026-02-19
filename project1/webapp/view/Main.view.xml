@@ -1,6 +1,72 @@
 <mvc:View controllerName="project1.controller.Main"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
     <Page id="page" title="{i18n>title}">
+        <content>
+            <Table
+                id="productsTable"
+                class="sapUiResponsiveMargin"
+                width="auto"
+                items="{ path: 'v2>/Products' }">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="{i18n>productsTitle}" level="H2" />
+                        <ToolbarSpacer />
+                        <Input
+                            placeholder="{i18n>filterByNamePlaceholder}"
+                            liveChange="onFilterProductsByName"
+                            width="40%" />
+                        <ComboBox
+                            id="comboBoxSorting"
+                            width="200px"
+                            placeholder="{i18n>sortingByColumnPlaceholder}"
+                            selectionChange="onSortingByColumn"
+                            selectedKey="">
+                            <core:Item key="none" text="{i18n>none}" />
+                            <core:Item key="Name" text="{i18n>columnName}" />
+                            <core:Item key="Description" text="{i18n>columnDescription}" />
+                            <core:Item key="ReleaseDate" text="{i18n>columnReleaseDate}" />
+                            <core:Item key="Price" text="{i18n>columnPrice}" />
+                            <core:Item key="Rating" text="{i18n>columnRating}" />
+                        </ComboBox>
+                        <ToolbarSpacer />
+                        <Button text="{i18n>addRecordButton}" type="Accept" press="onAddRecord" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="4em">
+                        <Text text="{i18n>columnId}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>columnName}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>columnDescription}" />
+                    </Column>
+                    <Column width="15rem" minScreenWidth="Desktop" demandPopin="true">
+                        <Text text="{i18n>columnReleaseDate}" />
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="{i18n>columnPrice}" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="{i18n>columnRating}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle" type="Navigation" press="onProductPress">
+                        <cells>
+                            <Text text="{v2>ID}" />
+                            <Text text="{v2>Name}" />
+                            <Text text="{v2>Description}" />
+                            <Text text="{v2>ReleaseDate}" />
+                            <ObjectNumber number="{v2>Price}" />
+                            <Text text="{v2>Rating}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
     </Page>
 </mvc:View>

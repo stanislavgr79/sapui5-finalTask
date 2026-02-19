@@ -14,6 +14,22 @@ function (JSONModel, Device) {
             var oModel = new JSONModel(Device);
             oModel.setDefaultBindingMode("OneWay");
             return oModel;
+        },
+
+        productModelV2: function () {
+            var oModel = new JSONModel({
+                selectedItems: 0,
+                validate: {
+                    isValidId: true,
+                    isValidName: true,
+                    isValidDescription: true,
+                    isValidReleaseDate: true,
+                    isValidPrice: true,
+                    isValidRating: true,
+                    isFormValid: true
+                }
+            });
+            return oModel;
         }
     };
 
