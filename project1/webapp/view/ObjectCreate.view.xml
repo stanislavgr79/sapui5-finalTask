@@ -49,22 +49,7 @@
                             columnsM="1">
                             <form:content>
                                 <m:Label text="{i18n>fieldId}"/>
-                                <m:Input
-                                    id="createProductId"
-                                    required="true"
-                                    type="Number"
-                                    core:require="{
-                                        ValidateProductV2: 'project1/validate/validateProductV2'
-                                    }"
-                                    value="{
-                                        path: 'v2>ID',
-                                        type: 'sap.ui.model.type.Integer',
-                                        constraints: { minimum: 0 }
-                                    }"
-                                    change="ValidateProductV2.onValidateId"
-                                    valueState="{= ${modelV2>/validate/isValidId} === true ? 'None' : 'Error'}"
-                                    valueStateText="{i18n>valueStateRequired}"
-                                    width="100%"/>
+                                <m:Text text="{v2>ID}" />
                                 
                                 <m:Label text="{i18n>fieldName}"/>
                                 <m:Input
@@ -126,7 +111,7 @@
                                     }"
                                     value="{
                                         path:'v2>Price',
-                                        type:'sap.ui.model.type.Integer',
+                                        type:'sap.ui.model.type.Float',
                                         constraints: { minimum: 0 }
                                     }"
                                     change="ValidateProductV2.onValidatePrice"
@@ -143,7 +128,7 @@
                                     }"
                                     value="{
                                         path:'v2>Rating',
-                                        type:'sap.ui.model.type.Integer',
+                                        type:'sap.ui.model.type.Float',
                                         constraints: { minimum: 0 }
                                     }"
                                     change="ValidateProductV2.onValidateRating"
