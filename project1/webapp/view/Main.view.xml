@@ -60,7 +60,9 @@
                             <Text text="{v2>ID}" />
                             <Text text="{v2>Name}" />
                             <Text text="{v2>Description}" />
-                            <Text text="{v2>ReleaseDate}" />
+                            <Text text="{path: 'v2>ReleaseDate',
+                                 type: 'sap.ui.model.type.Date',
+                                 formatOptions: {pattern: 'yyyy-MM-dd'}}" />
                             <ObjectNumber number="{v2>Price}" />
                             <Text text="{v2>Rating}" />
                         </cells>

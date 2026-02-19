@@ -20,20 +20,44 @@ sap.ui.define([
                 oModel.deleteCreatedEntry(this._oCreatedContext);
             }
 
-            const oContext = oModel.createEntry("/Products", {
-                inactive: true,
-                properties: {
-                    ID: null,
-                    Name: "",
-                    Description: "",
-                    ReleaseDate: null,
-                    Price: 0,
-                    Rating: 0
-                }
-            });
+            // Get next product ID from database
+            this._getNextProductId(oModel, (iNextId) => {
+                const oContext = oModel.createEntry("/Products", {
+                    inactive: true,
+                    properties: {
+                        ID: iNextId,
+                        Name: "",
+                        Description: "",
+                        ReleaseDate: null,
+                        Price: 0,
+                        Rating: 0
+                    }
+                });
 
-            this._oCreatedContext = oContext;
-            this.getView().setBindingContext(oContext, "v2");
+                this._oCreatedContext = oContext;
+                this.getView().setBindingContext(oContext, "v2");
+            });
+        },
+
+        _getNextProductId(oModel, fnCallback) {
+            // Fetch all products to find max ID
+            oModel.read("/Products", {
+                success: function (oData) {
+                    let iMaxId = 0;
+                    if (oData.results && Array.isArray(oData.results)) {
+                        oData.results.forEach((product) => {
+                            if (product.ID > iMaxId) {
+                                iMaxId = product.ID;
+                            }
+                        });
+                    }
+                    fnCallback(iMaxId + 1);
+                }.bind(this),
+                error: function () {
+                    // If error, start with ID = 1
+                    fnCallback(1);
+                }.bind(this)
+            });
         },
 
         onNavBack() {
@@ -72,25 +96,14 @@ sap.ui.define([
         },
 
         _resetFormData() {
-            const oModel = this.getModel("v2");
-            if (this._oCreatedContext) {
-                oModel.deleteCreatedEntry(this._oCreatedContext);
+            const oContext = this.getView().getBindingContext("v2");
+            if (oContext) {
+                oContext.getModel().setProperty(oContext.getPath() + "/Name", "");
+                oContext.getModel().setProperty(oContext.getPath() + "/Description", "");
+                oContext.getModel().setProperty(oContext.getPath() + "/ReleaseDate", null);
+                oContext.getModel().setProperty(oContext.getPath() + "/Price", 0);
+                oContext.getModel().setProperty(oContext.getPath() + "/Rating", 0);
             }
-
-            const oContext = oModel.createEntry("/Products", {
-                inactive: true,
-                properties: {
-                    ID: null,
-                    Name: "",
-                    Description: "",
-                    ReleaseDate: null,
-                    Price: 0,
-                    Rating: 0
-                }
-            });
-
-            this._oCreatedContext = oContext;
-            this.getView().setBindingContext(oContext, "v2");
         },
 
         _cleanupCreatedEntry(bDelete = true) {
